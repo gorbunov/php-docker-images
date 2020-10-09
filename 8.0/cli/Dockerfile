@@ -6,7 +6,8 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
     unzip libzip-dev ca-certificates wget \
-    && apt-get autoremove -y
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # unbuild extensions in single layer
 RUN docker-php-source extract \
