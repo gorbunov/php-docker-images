@@ -1,5 +1,5 @@
-FROM ogorbunov/php:7.4-cli
+FROM ogorbunov/php:8.0-cli
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
-RUN pecl install event \
+RUN pickle install event \
     && docker-php-ext-enable event

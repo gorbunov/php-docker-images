@@ -1,5 +1,5 @@
-FROM ogorbunov/php:7.4-fpm
+FROM ogorbunov/php:8.0-cli
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
-RUN pecl install xdebug \
+RUN pickle install xdebug \
     && docker-php-ext-enable xdebug
