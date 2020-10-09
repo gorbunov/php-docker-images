@@ -13,8 +13,7 @@ for VERSION in "${VERSIONS[@]}"; do
     DOCKERFILE_NAME="./${VERSION}/${TAG}/Dockerfile"
     if [ -f "$DOCKERFILE_NAME" ]
     then
-      docker build -t "$TAG_AS" . -f "$DOCKERFILE_NAME"
-      docker image push "$TAG_AS"
+      docker build -t "$TAG_AS" . -f "$DOCKERFILE_NAME" && docker image push "$TAG_AS"
     fi
   done
 done

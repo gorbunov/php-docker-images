@@ -17,12 +17,13 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # add pickle instead of pecl as layer
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \
+# RUN wget -q -nv https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \ @todo: replace as bugfix lands in release
+RUN wget -q -nv https://github.com/gorbunov/pickle/releases/download/0.6.0-versions-fix/pickle.phar \
     && chmod +x pickle.phar \
-    && mv pickle.phar /usr/bin/pickle
+    && mv pickle.phar /usr/local/bin/pickle
 
 # pecl extensions
-RUN pickle install redis \
+RUN pickle install --version-override=5.3.1 redis \
     && docker-php-ext-enable redis
 
 RUN mkdir /current
