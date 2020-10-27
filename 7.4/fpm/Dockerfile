@@ -13,7 +13,7 @@ RUN apt-get update \
 RUN docker-php-source extract \
     && docker-php-ext-configure zip \
     && docker-php-ext-install -j$(nproc) opcache zip \
-    && docker-php-ext-enable opcache \
+    && docker-php-ext-enable opcache zip \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
