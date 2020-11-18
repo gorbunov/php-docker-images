@@ -24,4 +24,6 @@ RUN pecl install redis \
 RUN mkdir /current
 WORKDIR /current
 
-CMD ["php"]
+STOPSIGNAL SIGQUIT
+EXPOSE 9000
+CMD ["php-fpm"]
