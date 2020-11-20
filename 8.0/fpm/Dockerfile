@@ -30,4 +30,5 @@ RUN pickle install --version-override=5.3.1 redis \
 RUN mkdir /current
 WORKDIR /current
 
-CMD ["php"]
+EXPOSE 9000
+CMD ["php-fpm"]
