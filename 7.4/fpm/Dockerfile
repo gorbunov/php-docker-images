@@ -12,8 +12,8 @@ RUN apt-get update \
 # unbuild extensions in single layer
 RUN docker-php-source extract \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install -j$(nproc) opcache zip \
-    && docker-php-ext-enable opcache zip \
+    && docker-php-ext-install -j$(nproc) pdo_mysql opcache zip \
+    && docker-php-ext-enable opcache \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
@@ -24,4 +24,6 @@ RUN pecl install redis \
 RUN mkdir /current
 WORKDIR /current
 
-CMD ["php"]
+STOPSIGNAL SIGQUIT
+EXPOSE 9000
+CMD ["php-fpm"]
