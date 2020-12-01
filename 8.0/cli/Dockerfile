@@ -1,4 +1,4 @@
-FROM php:8.0-rc-cli-buster
+FROM php:8.0-cli-buster
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
 # base apt configuration
@@ -17,14 +17,8 @@ RUN docker-php-source extract \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
-# add pickle instead of pecl as layer
-# RUN wget -q -nv https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \ @todo: replace as bugfix lands in release
-RUN wget -q -nv https://github.com/gorbunov/pickle/releases/download/0.6.0-versions-fix/pickle.phar \
-    && chmod +x pickle.phar \
-    && mv pickle.phar /usr/local/bin/pickle
-
 # pecl extensions
-RUN pickle install --version-override=5.3.1 redis \
+RUN pecl install redis \
     && docker-php-ext-enable redis
 
 RUN mkdir /current
