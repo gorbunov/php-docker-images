@@ -23,14 +23,14 @@ RUN apt-get update \
 RUN docker-php-source extract \
     && docker-php-ext-configure zip \
     && docker-php-ext-configure gd --enable-gd --with-webp --with-jpeg --with-xpm --with-freetype \
-    && docker-php-ext-install -j$(nproc) pdo_mysql opcache zip gmp bcmath gd imagick \
-    && docker-php-ext-enable opcache gmp bcmath gd imagick \
+    && docker-php-ext-install -j$(nproc) pdo_mysql opcache zip gmp bcmath gd \
+    && docker-php-ext-enable opcache gmp bcmath gd \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install redis \
-    && docker-php-ext-enable redis
+RUN pecl install redis imagick \
+    && docker-php-ext-enable redis imagick
 
 RUN mkdir /current
 WORKDIR /current
