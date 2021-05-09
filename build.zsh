@@ -1,10 +1,12 @@
 #!/usr/bin/env zsh
 
-IMAGES=('cli' 'event' 'fpm' 'cli-xdebug' 'event-xdebug' 'fpm-xdebug' 'cli-composer' 'event-composer' 'fpm-composer')
+IMAGES=('cli' 'event' 'fpm' 'cli-xdebug' 'event-xdebug' 'fpm-xdebug' 'cli-composer' 'cli-node' 'event-composer' 'fpm-composer')
+#IMAGES=('cli' 'fpm' 'cli-composer' 'cli-node')
+#IMAGES=('fpm')
 NAMESPACE="ogorbunov"
 REPO_NAME="php"
 VERSIONS=("7.4" "8.0")
-#VERSIONS=("7.4")
+#VERSIONS=("8.0")
 
 TAGBASE="${NAMESPACE}/${REPO_NAME}"
 
