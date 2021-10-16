@@ -1,4 +1,4 @@
-FROM php:8.1.0RC3-cli-buster
+FROM php:8.1.0-rc-cli-buster
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
 # base apt configuration
@@ -33,8 +33,11 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install igbinary redis memcached \
-    && docker-php-ext-enable igbinary redis memcached
+RUN pecl install && \
+    pecl install redis && \
+    pecl install memcached && \
+    pecl install ds && \
+    && docker-php-ext-enable igbinary redis memcached ds
 
 RUN mkdir /current
 WORKDIR /current

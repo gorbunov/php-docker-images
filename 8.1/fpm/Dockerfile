@@ -1,4 +1,4 @@
-FROM php:8.1.0RC3-fpm-buster
+FROM php:8.1.0-rc-fpm-buster
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
 # base apt configuration
@@ -33,8 +33,11 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install igbinary memcached redis \
-    && docker-php-ext-enable igbinary memcached redis
+RUN pecl install igbinary && \
+    pecl install memcached && \
+    pecl install redis && \
+    pecl install ds && \
+    docker-php-ext-enable igbinary memcached redis
 
 RUN mkdir /current
 WORKDIR /current

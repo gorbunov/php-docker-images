@@ -30,8 +30,10 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install redis imagick \
-    && docker-php-ext-enable redis imagick
+RUN pecl install redis && \
+    pecl install imagick && \
+    pecl install ds && \
+    && docker-php-ext-enable redis imagick ds
 
 RUN mkdir /current
 WORKDIR /current

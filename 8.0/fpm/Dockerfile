@@ -33,8 +33,11 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install igbinary memcached redis \
-    && docker-php-ext-enable igbinary memcached redis
+RUN pecl install igbinary && \
+    pecl install memcached && \
+    pecl install redis && \
+    pecl install ds && \
+    docker-php-ext-enable igbinary memcached redis ds
 
 RUN mkdir /current
 WORKDIR /current
