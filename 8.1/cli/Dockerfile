@@ -1,4 +1,4 @@
-FROM php:8.1.0-rc-cli-buster
+FROM php:8.1-cli-bullseye
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
 # base apt configuration

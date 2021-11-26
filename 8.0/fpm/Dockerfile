@@ -37,7 +37,8 @@ RUN pecl install igbinary && \
     pecl install memcached && \
     pecl install redis && \
     pecl install ds && \
-    docker-php-ext-enable igbinary memcached redis ds
+    pecl install imagick && \
+    docker-php-ext-enable igbinary memcached redis ds imagick
 
 RUN mkdir /current
 WORKDIR /current
