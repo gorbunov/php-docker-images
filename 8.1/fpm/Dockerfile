@@ -32,11 +32,17 @@ RUN docker-php-source extract \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
+# install pickle
+COPY ./scripts/pickle-install.sh /
+RUN chmod +x /pickle-install.sh \
+    && /pickle-install.sh \
+    && rm /pickle-install.sh
+
 # pecl extensions
-RUN pecl install igbinary && \
-    pecl install memcached && \
-    pecl install redis && \
-    pecl install ds && \
+RUN pickle install igbinary && \
+    pickle install memcached && \
+    pickle install redis && \
+    pickle install ds && \
     docker-php-ext-enable igbinary memcached redis
 
 RUN mkdir /current
