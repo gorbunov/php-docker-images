@@ -19,6 +19,7 @@ RUN apt-get update \
     libxpm-dev \
     libwebp-dev \
     libvpx-dev \
+    libicu-dev \
     libmemcached-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -27,23 +28,24 @@ RUN apt-get update \
 RUN docker-php-source extract \
     && docker-php-ext-configure zip \
     && docker-php-ext-configure gd --enable-gd --with-webp --with-jpeg --with-xpm --with-freetype \
-    && docker-php-ext-install -j$(nproc) gd gmp pdo_mysql bcmath opcache zip \
-    && docker-php-ext-enable opcache bcmath gd gmp \
+    && docker-php-ext-install -j$(nproc) gd gmp intl pdo_mysql bcmath opcache zip \
+    && docker-php-ext-enable opcache bcmath gd gmp intl \
     && { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } \
     && docker-php-source delete
 
 # install pickle
-COPY ./scripts/pickle-install.sh /
-RUN chmod +x /pickle-install.sh \
-    && /pickle-install.sh \
-    && rm /pickle-install.sh
+# COPY ./scripts/pickle-install.sh /
+# RUN chmod +x /pickle-install.sh \
+#    && /pickle-install.sh \
+#    && rm /pickle-install.sh
 
 # pecl extensions
-RUN pickle install && \
-    pickle install redis && \
-    pickle install memcached && \
-    pickle install ds && \
-    && docker-php-ext-enable igbinary redis memcached ds
+RUN pecl install && \
+    pecl install redis && \
+    pecl install igbinary && \
+    pecl install memcached && \
+    pecl install ds && \
+    docker-php-ext-enable igbinary redis memcached ds
 
 RUN mkdir /current
 WORKDIR /current

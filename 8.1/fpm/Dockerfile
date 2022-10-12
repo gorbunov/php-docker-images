@@ -45,6 +45,8 @@ RUN pickle install igbinary && \
     pickle install ds && \
     docker-php-ext-enable igbinary memcached redis
 
+COPY ./configs/8.1/php-fpm.d/www.conf /usr/local/etc/php-fpm.d/www.conf
+
 RUN mkdir /current
 WORKDIR /current
 
