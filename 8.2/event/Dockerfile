@@ -10,6 +10,8 @@ RUN apt-get update \
     libevent-openssl-2.1-7 \
     && docker-php-source extract \
     && docker-php-ext-install sockets \
+    && docker-php-ext-configure pcntl --enable-pcntl \
+    && docker-php-ext-install pcntl \
     && pecl install event \
     && docker-php-ext-enable --ini-name "zz-event.ini" event \
     && apt-get autoremove -y \

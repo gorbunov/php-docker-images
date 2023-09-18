@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 IMAGES=('cli' 'event' 'fpm' 'cli-xdebug' 'event-xdebug' 'fpm-xdebug' 'cli-composer' 'cli-node' 'event-composer' 'fpm-composer')
-VERSIONS=("8.1" "8.2")
+VERSIONS=("8.2")
 
 NAMESPACE="ogorbunov"
 REPO_NAME="php"
