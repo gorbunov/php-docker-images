@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-bullseye
+FROM php:8.2-fpm-bookworm
 LABEL maintainer="Oleg Gorbunov <work@gorbunov.dev>"
 
 # base apt configuration
@@ -21,6 +21,8 @@ RUN apt-get update \
     libvpx-dev \
     libicu-dev \
     libmemcached-dev \
+    libsasl2-dev \
+    libssl-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

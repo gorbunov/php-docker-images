@@ -1,4 +1,4 @@
-FROM php:8.2-cli-bullseye
+FROM php:8.2-cli-bookworm
 LABEL maintainer="Oleg Gorbunov <work@gorbunov.dev>"
 
 # base apt configuration
@@ -21,6 +21,8 @@ RUN apt-get update \
     libvpx-dev \
     libicu-dev \
     libmemcached-dev \
+    libsasl2-dev \
+    libssl-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -34,8 +36,7 @@ RUN docker-php-source extract \
     && docker-php-source delete
 
 # pecl extensions
-RUN pecl install && \
-    pecl install redis && \
+RUN pecl install redis && \
     pecl install igbinary && \
     pecl install memcached && \
     pecl install ds && \

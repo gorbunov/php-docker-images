@@ -1,4 +1,4 @@
-FROM php:7.4-cli-buster
+FROM php:7.4-cli-bullseye
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
 # base apt configuration
@@ -33,9 +33,9 @@ RUN docker-php-source extract \
 # pecl extensions
 RUN pecl install redis && \
     pecl install imagick && \
-    pecl install ds && \
+    pecl install ds-1.4.0 && \
     pecl install igbinary && \
-    docker-php-ext-enable igbinary redis imagick
+    docker-php-ext-enable igbinary redis imagick ds
 
 RUN mkdir /current
 WORKDIR /current

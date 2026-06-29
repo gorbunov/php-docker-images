@@ -1,11 +1,19 @@
 FROM ogorbunov/php:7.4-cli
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ntp ntpdate build-essential autoconf libtool libtool-bin automake uuid-dev pkg-config libssl-dev libevent-dev libevent-2.1-6 libevent-extra-2.1-6 libevent-openssl-2.1-6 \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN docker-php-ext-install sockets pcntl
-RUN ulimit -n 24000
-RUN pecl install event \
-    && docker-php-ext-enable event
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    libssl-dev \
+    openssl \
+    libevent-dev \
+    libevent-2.1-7 \
+    libevent-openssl-2.1-7 \
+    && docker-php-source extract \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-configure pcntl --enable-pcntl \
+    && docker-php-ext-install pcntl \
+    && pecl install event \
+    && docker-php-ext-enable --ini-name "zz-event.ini" event \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && docker-php-source delete
