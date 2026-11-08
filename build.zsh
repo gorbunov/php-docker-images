@@ -25,7 +25,7 @@ for VERSION in "${VERSIONS[@]}"; do
       # Builds amd64 + arm64 and pushes a single multi-arch manifest list.
       # --push is required (multi-platform images can't be loaded locally); each
       # base is pushed before its dependents, which buildx then pulls per-platform.
-      docker buildx build --platform "$PLATFORMS" -t "$TAG_AS" . -f "$DOCKERFILE_NAME" --push
+      docker buildx build --platform "$PLATFORMS" --pull --no-cache -t "$TAG_AS" . -f "$DOCKERFILE_NAME" --push
     fi
   done
 done

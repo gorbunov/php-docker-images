@@ -1,6 +1,10 @@
 FROM php:7.4-fpm-bullseye
 LABEL maintainer="Oleg Gorbunov <dev.oleg.gorbunov@gmail.com>"
 
+# Debian 11 (bullseye) LTS ended 2026-08-31; its repos moved to archive.debian.org
+# (deb.debian.org now 404s on bullseye-security packages). Dependent 7.4 images inherit this.
+RUN sed -i "s|deb.debian.org|archive.debian.org|g" /etc/apt/sources.list
+
 # base apt configuration
 RUN apt-get update \
     && apt-get upgrade -y \
